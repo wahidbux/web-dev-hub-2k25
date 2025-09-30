@@ -24,6 +24,8 @@ We want this project to be **welcoming for beginners** and fun for web developer
 - Keep project folders **organized**
 - Add your **name** in `CONTRIBUTORS.md`
 - Be respectful in discussions
+- Follow the **code of conduct**
+
 
 ---
 
