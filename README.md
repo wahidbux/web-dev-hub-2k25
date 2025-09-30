@@ -2,19 +2,11 @@
 
 Welcome to **Hacktoberfest WebDev** — a beginner-friendly project where you can contribute mini **web development projects** using HTML, CSS, JS, or frameworks like React.
 
----
-
-## 🌟 What is Hacktoberfest?
-Hacktoberfest is a month-long celebration of open-source software run by [DigitalOcean](https://hacktoberfest.com/).  
-Make **4 PRs** in October and earn a free T-shirt 👕 or plant a tree 🌱.
-
----
-
 ## 🚀 How to Contribute
 1. **Fork** this repository  
 2. **Clone** your fork:
    ```bash
-   git clone https://github.com/your-username/hacktoberfest-webdev.git
+   git clone https://github.com/your-username/web-dev-hub-2k25.git
    ```
 3. **Create a new branch:**
    ```bash
@@ -56,6 +48,3 @@ Make **4 PRs** in October and earn a free T-shirt 👕 or plant a tree 🌱.
 See the [CONTRIBUTORS.md](CONTRIBUTORS.md) file for all contributors 💜.
 
 ---
-
-## 📜 License
-This project is licensed under the [MIT License](LICENSE).
