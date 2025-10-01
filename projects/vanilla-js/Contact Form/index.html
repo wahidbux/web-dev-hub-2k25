@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Responsive Form + Todo Example</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="navbar">
+    <div class="brand">
+      <div class="logo">RP</div>
+      <div>
+        <div style="font-weight:800">Responsive Playground</div>
+        <div style="font-size:13px;color:var(--muted)">Forms • Validation • DOM</div>
+      </div>
+    </div>
+
+    <nav class="navlinks">
+      <a href="#form">Form</a>
+      <a href="#todo">Todo</a>
+      <a href="#about">About</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section>
+      <div class="card" id="form">
+        <h2>Contact Form — validation demo</h2>
+        <p class="helper">Try submitting without required fields or type a bad email.</p>
+
+        <form id="contactForm" novalidate>
+          <div class="row">
+            <label for="name">Full name <span style="color:var(--danger)">*</span></label>
+            <input id="name" name="name" type="text" required placeholder="John Doe" />
+            <div class="error" data-for="name"></div>
+          </div>
+
+          <div class="row">
+            <label for="email">Email <span style="color:var(--danger)">*</span></label>
+            <input id="email" name="email" type="email" required placeholder="john@example.com" />
+            <div class="error" data-for="email"></div>
+          </div>
+
+          <div class="row">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="4" placeholder="How can we help? (optional)"></textarea>
+            <div class="helper">Max 500 characters</div>
+            <div class="error" data-for="message"></div>
+          </div>
+
+          <div class="actions">
+            <button type="submit">Send message</button>
+            <button type="button" class="secondary" id="resetBtn">Reset</button>
+          </div>
+
+          <div id="formAlert" class="helper" style="margin-top:12px"></div>
+        </form>
+      </div>
+
+      <div class="card" style="margin-top:20px">
+        <h3>DOM Manipulation — small demo</h3>
+        <p class="helper">Below is a button that will add an example paragraph to the page using JS DOM methods.</p>
+        <div style="display:flex;gap:10px">
+          <button id="addPara">Add paragraph</button>
+          <button id="clearParas" class="secondary">Clear paragraphs</button>
+        </div>
+        <div id="paras" style="margin-top:12px"></div>
+      </div>
+    </section>
+
+    <aside>
+      <div class="card" id="todo">
+        <div class="todo-header">
+          <h3>Todo List</h3>
+          <small class="helper">Persistent (localStorage)</small>
+        </div>
+
+        <div style="display:flex;gap:8px;margin-bottom:10px">
+          <input id="todoInput" type="text" placeholder="Add new task" style="flex:1" />
+          <button id="addTodo">Add</button>
+        </div>
+
+        <ul class="todo-list" id="todoList"></ul>
+
+        <div style="display:flex;gap:8px;margin-top:12px">
+          <button id="clearCompleted" class="secondary">Clear completed</button>
+          <button id="clearAll" class="secondary">Clear all</button>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:20px" id="about">
+        <h4>How this covers your objectives</h4>
+        <ul>
+          <li>Form with text, email, and submit — plus CSS styling.</li>
+          <li>JS validation (required + email format + length checks).</li>
+          <li>Responsive layout: Flexbox (nav) + Grid (content) + media queries.</li>
+          <li>DOM manipulation: to-do list + add/remove tasks + dynamic paragraphs.</li>
+        </ul>
+      </div>
+    </aside>
+  </main>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
+

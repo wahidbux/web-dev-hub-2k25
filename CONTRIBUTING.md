@@ -6,6 +6,7 @@ We want this project to be **welcoming for beginners** and fun for web developer
 ---
 
 ## 📖 Contribution Steps
+
 1. Fork the repository
 2. Clone your fork
 3. Create a new branch
@@ -20,16 +21,17 @@ We want this project to be **welcoming for beginners** and fun for web developer
 ---
 
 ## 📝 Rules
+
 - Only submit **working projects**
 - Keep project folders **organized**
 - Add your **name** in `CONTRIBUTORS.md`
 - Be respectful in discussions
 - Follow the **code of conduct**
 
-
 ---
 
 ## 📚 Resources for Beginners
+
 - [FreeCodeCamp - Git & GitHub](https://www.freecodecamp.org/news/git-and-github-for-beginners/)  
 - [MDN Web Docs](https://developer.mozilla.org/en-US/)  
 - [React Docs](https://reactjs.org/)  
