@@ -1,0 +1,230 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  --forest-green: #2d5016;
+  --leaf-green: #4a7c35;
+  --moss-green: #6b9c59;
+  --earth-brown: #8b6f47;
+  --sky-blue: #87ceeb;
+  --sunset-orange: #ff8c42;
+  --text-dark: #2c3e20;
+  --text-light: #f5f5f5;
+  --card-bg: rgba(255, 255, 255, 0.95);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #2d5016 0%, #4a7c35 50%, #6b9c59 100%);
+  position: relative;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image:
+    radial-gradient(circle at 20% 80%, rgba(139, 111, 71, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(135, 206, 235, 0.15) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+#app {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+}
+
+header {
+  text-align: center;
+  padding: 48px 24px 32px;
+  background: linear-gradient(180deg, rgba(45, 80, 22, 0.8) 0%, transparent 100%);
+}
+
+header h1 {
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: var(--text-light);
+  margin-bottom: 8px;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+  letter-spacing: -1px;
+}
+
+header p {
+  font-size: 1.25rem;
+  color: var(--text-light);
+  opacity: 0.9;
+  font-weight: 300;
+}
+
+.animal-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 32px;
+  padding: 40px 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.animal-card {
+  background: var(--card-bg);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.animal-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+}
+
+.animal-image {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  background: linear-gradient(135deg, #6b9c59, #87ceeb);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 6rem;
+}
+
+.animal-content {
+  padding: 24px;
+}
+
+.animal-content h3 {
+  font-size: 1.75rem;
+  color: var(--forest-green);
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.animal-type {
+  display: inline-block;
+  padding: 4px 12px;
+  background: var(--moss-green);
+  color: white;
+  border-radius: 16px;
+  font-size: 0.875rem;
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+.animal-content p {
+  color: var(--text-dark);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.animal-stats {
+  display: flex;
+  gap: 16px;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(45, 80, 22, 0.1);
+}
+
+.stat {
+  flex: 1;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  color: var(--earth-brown);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.stat-value {
+  font-size: 1rem;
+  color: var(--forest-green);
+  font-weight: 600;
+}
+
+.filter-bar {
+  text-align: center;
+  padding: 0 24px 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.filter-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  padding: 12px 24px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid var(--moss-green);
+  border-radius: 24px;
+  color: var(--forest-green);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.filter-btn:hover {
+  background: var(--moss-green);
+  color: white;
+  transform: scale(1.05);
+}
+
+.filter-btn.active {
+  background: var(--forest-green);
+  color: white;
+  border-color: var(--forest-green);
+}
+
+footer {
+  text-align: center;
+  padding: 32px 24px;
+  color: var(--text-light);
+  font-size: 0.95rem;
+  opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 2.5rem;
+  }
+
+  header p {
+    font-size: 1rem;
+  }
+
+  .animal-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 24px 16px;
+  }
+
+  .filter-buttons {
+    gap: 8px;
+  }
+
+  .filter-btn {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+}
