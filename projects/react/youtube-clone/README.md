@@ -1,3 +1,7 @@
+# Youtube Clone App
+
+This is my attepmt to recreate the look of the famous platform
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
