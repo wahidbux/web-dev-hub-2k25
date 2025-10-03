@@ -1,3 +1,7 @@
+# Meme Generator App
+
+Simple app to create meme from a text that you choose with the image. It's fun :D
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
