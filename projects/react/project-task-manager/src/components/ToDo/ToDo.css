@@ -1,0 +1,46 @@
+.task {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: 400px;
+  font-family: Arial, sans-serif;
+}
+
+.text {
+  margin: 0;
+  color: #333;
+  font-size: 14px;
+}
+
+.btn {
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  transition: 0.25s;
+}
+
+.complete {
+  background-color: #00d1b2;
+}
+
+.complete:hover {
+  background-color: #15a791;
+}
+
+.undo {
+  background-color: #ffb70f;
+}
+
+.undo:hover {
+  background-color: #b88611;
+}
