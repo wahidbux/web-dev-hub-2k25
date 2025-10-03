@@ -6,3 +6,4 @@ Thanks to all the amazing contributors! 🎉
 - Nishagi Jeewantha [@nishagii](https://github.com/nishagii/)
 - Aryan Kumar [@Mystify7777](https://github.com/Mystify7777/)
 - Sahil Kumar [@SahilKumarIN](https://github.com/SahilKumarIN)
+- Agrim Kedia [@Agrim06](https://github.com/Agrim06)
