@@ -1,3 +1,7 @@
+## Tenzies game
+
+Roll the 10 dice and try to get them all to show the same number. Click dice to hold them between rolls. The game keeps track of your rolls, and when you win, confetti celebrates.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
