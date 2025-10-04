@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "name": "Dr. Asha Mehra",
+    "specialty": "Cardiologist",
+    "experience": 12,
+    "rating": 4.8,
+    "location": "Delhi",
+    "image": "https://randomuser.me/api/portraits/women/45.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Dr. Rohan Das",
+    "specialty": "Dermatologist",
+    "experience": 8,
+    "rating": 4.5,
+    "location": "Mumbai",
+    "image": "https://randomuser.me/api/portraits/men/46.jpg"
+  }
+]
