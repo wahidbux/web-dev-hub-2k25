@@ -1,0 +1,114 @@
+:root{
+    --bckg: #202120;
+    --prime: #1b1c1b;
+    --held: #fbe134;
+    --text: #e9eaec;
+    --dark: #0b0c0c;
+}
+
+body {
+    margin: 0;
+    background-color: var(--bckg);
+    padding: 20px;
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.game{
+    height: 600px;
+    background-color: var(--prime);
+    border: 10px solid var(--held);
+    box-shadow: 0 0 40px black;
+    border-radius: 10px;
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.dice-board{
+    display: grid;
+    grid-template: auto auto / repeat(5, 1fr);
+    gap: 20px;
+    padding: 40px;
+    margin: 0;
+
+}
+.die{
+    height: 80px;
+    width: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    font-weight: 800;
+    color: var(--held);
+    border-radius: 10px;
+    border: 2px solid var(--held);
+    box-shadow: 4px 4px 10px black;
+}
+.die-number{
+    background-color: var(--bckg);
+}
+.title{
+    color: var(--held);
+    font-size: 50px;
+    letter-spacing: 3px;
+    font-weight: 800;
+    text-align: center;
+    text-shadow: 4px 4px 10px black;
+    margin: 0;
+    
+}
+.instructions{
+    text-align: center;
+    color: #050505;
+    font-weight: 800;
+    width: 500px;
+}
+button{
+    background-color: var(--held);
+    font-family: 'Roboto', sans-serif;
+    font-weight: 800;
+    font-size: 22px;
+    width: 150px;
+    height: 40px;
+    border-radius: 20px;
+    border: none;
+    box-shadow: 4px 4px 10px black;
+
+}
+button:hover,
+.die:hover{
+    cursor: pointer;
+}
+button:active{
+    box-shadow: inset 2px 2px 10px black,4px 4px 10px black;
+}
+.stats{
+    display: flex;
+    align-items:center;
+    justify-content: center;
+    width: 530px;
+    font-size: 10px;
+    margin: 0;
+    color: black;
+    
+}
+.best-time{
+    font-size: 20px;
+    margin: 0;
+    color: var(--held);
+    border: 2px solid var(--held);
+    padding: 5px;
+    margin-bottom: 30px;
+}
+.rolls,
+.time{
+    font-weight: 700;
+}
+span{
+    color: var(--held);
+    text-shadow: 4px 4px 10px black;
+}
