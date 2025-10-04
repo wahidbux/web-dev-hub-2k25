@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Programming Quiz App</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Tabbed Quiz App</h1>
+
+    <div class="tabs">
+      <button class="tab-btn active" data-category="Linux">Linux</button>
+      <button class="tab-btn" data-category="HTML">HTML</button>
+      <button class="tab-btn" data-category="SQL">SQL</button>
+    </div>
+
+    <div id="start-container">
+      <button id="start-btn">Start Quiz</button>
+    </div>
+
+    <div id="quiz-container" class="hide">
+      <div id="progress">
+        <div id="progress-bar"></div>
+      </div>
+      <div id="timer">Time Left: <span id="time">15</span>s</div>
+      <div id="question"></div>
+      <div id="options"></div>
+      <button id="next-btn" class="hide">Next</button>
+    </div>
+
+    <div id="result-container" class="hide">
+      <h2>Your Score: <span id="score"></span></h2>
+      <input type="text" id="username" placeholder="Enter your name">
+      <button id="save-score-btn">Save Score</button>
+
+      <h3>High Scores</h3>
+      <ul id="high-scores"></ul>
+
+      <button id="restart-btn">Play Again</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
