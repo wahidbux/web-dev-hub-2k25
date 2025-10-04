@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2Basil Patient Profile</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#f2f4f8;
+      --card:#ffffff;
+      --muted:#9aa3b2;
+      --accent:#5e4bff; 
+      --accent-2:#6f7df7;
+      --soft:#f6f7fb;
+      --danger:#ff6b6b;
+      --success:#2ecc71;
+      --radius:14px;
+      --shadow: 0 8px 20px rgba(25,30,45,0.06);
+      --text:#263238;
+      --side-w:260px;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background:var(--bg);
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      min-height:100vh;
+    }
+
+    .app {
+      display:grid;
+      grid-template-columns: 80px 1fr var(--side-w);
+      gap:24px;
+      padding:28px;
+      align-items:start;
+    }
+
+    .nav {
+      background:transparent;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:18px;
+    }
+    .logo {
+      background:var(--card);
+      width:56px;height:56px;
+      border-radius:12px;
+      display:flex;align-items:center;justify-content:center;
+      box-shadow:var(--shadow);
+    }
+    .nav .icon {
+      width:56px;height:56px;border-radius:12px;
+      display:flex;align-items:center;justify-content:center;
+      color:#6b7280;font-size:18px;
+      background:transparent;cursor:pointer;
+    }
+    .nav .icon.active{background:var(--card); color:var(--accent); box-shadow:var(--shadow)}
+
+    .doctor-card {
+      margin-top:auto;
+      background:var(--card);
+      width:100%;
+      border-radius:14px;
+      padding:14px;
+      box-shadow:var(--shadow);
+      text-align:center;
+    }
+    .doctor-card img{width:56px;height:56px;border-radius:50%;object-fit:cover;margin-bottom:8px}
+    .doctor-card h4{margin:6px 0 2px;font-size:14px}
+    .doctor-card p{margin:0;font-size:12px;color:var(--muted)}
+
+    .center {
+      display:flex;flex-direction:column;gap:18px;
+    }
+
+    .topbar {
+      background:var(--card);
+      border-radius:var(--radius);
+      padding:12px 18px;
+      box-shadow:var(--shadow);
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
+    }
+    .search {
+      display:flex;align-items:center;gap:12px;
+      background:var(--soft);padding:8px 12px;border-radius:999px;width:60%;
+    }
+    .search input{
+      border:0;background:transparent;outline:none;width:100%;
+      font-size:14px;color:var(--text);
+    }
+    .top-actions {display:flex;gap:10px;align-items:center}
+
+    /* Content grid */
+    .content-grid {
+      display:grid;
+      grid-template-columns: 360px 1fr;
+      gap:18px;
+    }
+
+    /* Overall performance card */
+    .card {
+      background:var(--card);
+      border-radius:var(--radius);
+      padding:18px;
+      box-shadow:var(--shadow);
+    }
+    .perf .gauge-row {display:flex;align-items:center;gap:16px}
+    .gauge {
+      width:160px;height:120px;display:flex;align-items:center;justify-content:center;
+    }
+    .perf h3{margin:0;font-size:13px;color:var(--muted)}
+    .score{font-size:30px;font-weight:700;margin-top:6px}
+    .perf p{font-size:13px;color:var(--muted);margin-top:8px}
+
+    .btn-primary {
+      background:linear-gradient(90deg,var(--accent),var(--accent-2));
+      color:white;padding:10px 14px;border-radius:12px;border:0;cursor:pointer;
+      font-weight:600;
+    }
+
+    /* Analytics card */
+    .analytics {
+      display:flex;flex-direction:column;gap:14px;
+    }
+    .metrics {
+      display:flex;gap:8px;flex-wrap:wrap;
+    }
+    .metrics button {
+      border-radius:999px;padding:8px 12px;border:0;background:var(--soft);
+      color:var(--muted);cursor:pointer;font-weight:600;
+    }
+    .metrics button.active { background:linear-gradient(90deg,var(--accent),var(--accent-2)); color:#fff }
+
+    .chart-wrap { background:transparent;padding:8px 0 }
+
+    /* Lab reports area */
+    .reports {
+      margin-top:6px;
+    }
+    .tabs {display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+    .tabs button {
+      padding:8px 12px;border-radius:999px;border:0;background:var(--soft);cursor:pointer;font-weight:600;color:var(--muted)
+    }
+    .tabs button.active { background: #111827; color:#fff; background:linear-gradient(90deg,var(--accent),var(--accent-2)) }
+
+    table.reports-table { width:100%; border-collapse:collapse; font-size:13px;}
+    table.reports-table th, table.reports-table td{ text-align:left;padding:12px 10px;border-bottom:1px solid #eef1f6 }
+    .tag {display:inline-block;padding:6px 10px;border-radius:999px;font-size:12px;color:#fff}
+
+    /* Right side patient profile */
+    .right {
+      display:flex;flex-direction:column;gap:18px;
+      position:sticky;top:28px;
+      align-self:start;
+    }
+    .profile {
+      background:var(--card);padding:16px;border-radius:var(--radius);box-shadow:var(--shadow);
+      display:flex;flex-direction:column;gap:12px;align-items:center;
+    }
+    .profile img{width:96px;height:96px;border-radius:12px;object-fit:cover}
+    .profile h4{margin:0}
+    .profile p{margin:0;color:var(--muted);font-size:13px;text-align:center}
+
+    .mini-calendar {
+      background:var(--card);padding:10px;border-radius:12px;box-shadow:var(--shadow);
+    }
+    .appointments { background:var(--card);padding:12px;border-radius:12px;box-shadow:var(--shadow) }
+
+    .appt-list { display:flex;gap:10px;flex-direction:column }
+    .appt-item {display:flex;gap:12px;align-items:center}
+    .appt-dot {width:8px;height:40px;border-radius:6px}
+    .appt-content {flex:1}
+    .date-pill {background:var(--soft);padding:6px 8px;border-radius:8px;font-weight:700}
+
+    @media (max-width:1100px){
+      .app{grid-template-columns:72px 1fr; padding:18px}
+      .center{grid-column:2}
+      .right{display:none}
+    }
+    @media (max-width:720px){
+      .app{grid-template-columns:56px 1fr; padding:12px; gap:12px}
+      .content-grid{grid-template-columns: 1fr}
+      .card {padding:14px}
+      .perf .gauge-row{flex-direction:row}
+      .search{width:55%}
+      .topbar{flex-direction:column;align-items:flex-start;gap:12px}
+    }
+    @media (max-width:420px){
+      .search{width:100%}
+      .content-grid{gap:12px}
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+
+    <aside class="nav" aria-label="Primary">
+      <div class="logo"><i class="fa-solid fa-wave-square" style="color:var(--accent)"></i></div>
+
+      <div class="icon active" title="Dashboard"><i class="fa-solid fa-grid"></i></div>
+      <div class="icon" title="Appointments"><i class="fa-solid fa-calendar-days"></i></div>
+      <div class="icon" title="Analytics"><i class="fa-solid fa-chart-column"></i></div>
+      <div class="icon" title="Doctors"><i class="fa-solid fa-user-doctor"></i></div>
+      <div class="icon" title="Reports"><i class="fa-solid fa-file-lines"></i></div>
+      <div class="icon" title="Help"><i class="fa-solid fa-question"></i></div>
+
+      <div class="doctor-card" style="margin-top:auto">
+        <img src="https://i.pravatar.cc/120?img=12" alt="Dr">
+        <h4>Dr. Sadettin Kupek</h4>
+        <p style="color:var(--muted)">Super Admin</p>
+      </div>
+    </aside>
+
+    <main class="center">
+      <!-- Topbar -->
+      <div class="topbar">
+        <div class="search">
+          <i class="fa-solid fa-magnifying-glass" style="color:var(--muted)"></i>
+          <input id="searchInput" placeholder="Search patients, invoice, appointments etc" />
+        </div>
+        <div class="top-actions">
+          <button class="btn-primary">Weekly ▾</button>
+          <button title="Notifications" style="background:transparent;border:0;font-size:18px;cursor:pointer"><i class="fa-regular fa-bell"></i></button>
+          <button title="Messages" style="background:transparent;border:0;font-size:18px;cursor:pointer"><i class="fa-regular fa-envelope"></i></button>
+        </div>
+      </div>
+
+      <!-- Two-column content -->
+      <section class="content-grid">
+
+        <!-- LEFT column (Overall perf) -->
+        <div class="card perf">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <h3>Overall Performance</h3>
+              <small style="color:var(--muted)">Avg Health Score</small>
+              <div class="score" id="avgScore">468</div>
+            </div>
+            <div class="gauge" id="gaugeContainer">
+              <!-- Gauge canvas inserted by JS -->
+              <canvas id="gaugeChart" width="160" height="120"></canvas>
+            </div>
+          </div>
+          <p>Martha Smith is healthier than <strong id="pctBetter">95%</strong> people</p>
+          <div style="margin-top:12px;display:flex;gap:10px;align-items:center">
+            <button class="btn-primary" id="fullReportBtn">Check Full Report</button>
+            <div style="margin-left:auto;color:var(--muted);font-weight:600">↗ 95%</div>
+          </div>
+        </div>
+
+
+        <div class="card analytics">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <h3 style="margin:0">Analytics</h3>
+            <div style="display:flex;gap:8px;align-items:center">
+              <div class="metrics" id="metricButtons">
+                <button data-metric="heart" class="active">Heart Rate</button>
+                <button data-metric="bp">Blood Pressure</button>
+                <button data-metric="glu">Glucose</button>
+                <button data-metric="ox">Oxygen</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="chart-wrap">
+            <canvas id="barChart" height="160"></canvas>
+          </div>
+
+          <div class="reports">
+            <div class="tabs" id="reportTabs">
+              <button data-tab="lab" class="active">Lab Reports</button>
+              <button data-tab="pres">Prescription</button>
+              <button data-tab="med">Medication</button>
+              <button data-tab="diag">Diagnosis</button>
+            </div>
+
+            <div id="reportContent">
+              <table class="reports-table" id="labTable">
+                <thead>
+                  <tr>
+                    <th style="width:36%">Test Name</th>
+                    <th>Referred by</th>
+                    <th style="width:12%">Date</th>
+                    <th>Comments</th>
+                    <th style="width:10%">Result</th>
+                  </tr>
+                </thead>
+                <tbody id="labBody">
+                </tbody>
+              </table>
+
+            
+              <div id="otherContent" style="display:none;padding:12px;color:var(--muted)">
+                Select a tab to see more details (this area can show prescriptions, meds, diagnosis).
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <div class="card" style="margin-top:6px">
+        <h3 style="margin:0 0 12px 0">Recent Lab Records</h3>
+        <table class="reports-table" style="width:100%">
+          <thead>
+            <tr><th>Test Name</th><th>Referred By</th><th>Date</th><th>Comments</th><th>Result</th></tr>
+          </thead>
+          <tbody id="recentBody"></tbody>
+        </table>
+      </div>
+    </main>
+
+    <!-- RIGHT COLUMN (Profile & appointments) -->
+    <aside class="right">
+      <div class="profile">
+        <div style="display:flex;gap:12px;align-items:center">
+          <img src="https://i.pravatar.cc/240?img=65" alt="patient photo"/>
+          <div style="text-align:left">
+            <h4>HENRY</h4>
+            <p>65 yrs old · Male</p>
+          </div>
+        </div>
+        <div style="width:100%;font-size:13px;color:var(--muted);line-height:1.4">
+          <div>7246, Bangalore</div>
+          <div>Cell +91 810-351-7774</div>
+          <div style="margin-top:8px;color:var(--muted);font-size:13px">Last Appointment: <strong>24 Jan, 2024</strong></div>
+        </div>
+        <div style="width:100%;display:flex;gap:8px;margin-top:8px">
+          <button class="btn-primary" style="flex:1">Profile</button>
+          <button style="flex:1;background:var(--soft);border:0;border-radius:10px">History</button>
+        </div>
+      </div>
+
+      <div class="mini-calendar" id="miniCal">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+          <strong id="miniMonth">Jan 2024</strong>
+          <div style="display:flex;gap:8px">
+            <button id="prevMonth" title="Previous" style="border:0;background:transparent;cursor:pointer"><i class="fa-solid fa-chevron-left"></i></button>
+            <button id="nextMonth" title="Next" style="border:0;background:transparent;cursor:pointer"><i class="fa-solid fa-chevron-right"></i></button>
+          </div>
+        </div>
+        <div id="miniDates" style="display:grid;grid-template-columns:repeat(7,1fr);gap:6px;font-size:12px"></div>
+      </div>
+
+      <div class="appointments">
+        <h4 style="margin:0 0 8px 0">Appointments</h4>
+        <div class="appt-list" id="apptList">
+        </div>
+      </div>
+    </aside>
+
+  </div>
+
+  <script>
+
+    const gaugeCtx = document.getElementById('gaugeChart').getContext('2d');
+    const gaugeValue = 0.82; // 0..1
+    const gauge = new Chart(gaugeCtx, {
+      type: 'doughnut',
+      data: {
+        datasets: [{
+          data: [gaugeValue, 1-gaugeValue],
+          backgroundColor: ['var(--accent)', '#eef2ff'],
+          borderWidth:0,
+          cutout: '70%',
+        }]
+      },
+      options: {
+        rotation: -110 * Math.PI/180,
+        circumference: 220 * Math.PI/180,
+        plugins:{legend:{display:false}, tooltip:{enabled:false}},
+        responsive:false
+      }
+    });
+
+    document.getElementById('avgScore').textContent = 468;
+    document.getElementById('pctBetter').textContent = '95%';
+
+    /* ---------- Bar chart: Analytics ---------- */
+    const barCtx = document.getElementById('barChart').getContext('2d');
+    const barChart = new Chart(barCtx, {
+      type: 'bar',
+      data: {
+        labels: ['Sat','Sun','Mon','Tue','Wed','Thu','Fri'],
+        datasets: [{
+          label:'Heart Rate',
+          data:[140,150,125,130,167,145,120],
+          backgroundColor: function(context){
+            const i = context.dataIndex;
+            return (i===4) ? 'rgba(94,75,255,1)' : 'rgba(94,75,255,0.45)';
+          },
+          borderRadius:6,
+          barThickness:22
+        }]
+      },
+      options:{
+        scales:{ y:{ beginAtZero:true, max:200, ticks:{stepSize:50, color:'#9aa3b2'}}, x:{ ticks:{color:'#9aa3b2'}} },
+        plugins:{legend:{display:false}, tooltip:{mode:'index', intersect:false}},
+        responsive:true,
+        maintainAspectRatio:false
+      }
+    });
+
+    /* ---------- Metric switching ---------- */
+    const metricButtons = document.querySelectorAll('#metricButtons button');
+    metricButtons.forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        metricButtons.forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        const m = btn.dataset.metric;
+        // simple data swap — in real app you'd fetch new data
+        if(m==='heart'){
+          barChart.data.datasets[0].data = [140,150,125,130,167,145,120];
+          barChart.data.datasets[0].label = 'Heart Rate';
+        } else if(m==='bp'){
+          barChart.data.datasets[0].data = [130,135,120,145,155,140,130];
+          barChart.data.datasets[0].label = 'Blood Pressure (systolic)';
+        } else if(m==='glu'){
+          barChart.data.datasets[0].data = [90,95,100,110,92,85,100];
+          barChart.data.datasets[0].label = 'Glucose';
+        } else {
+          barChart.data.datasets[0].data = [98,96,97,99,95,96,97];
+          barChart.data.datasets[0].label = 'Oxygen %';
+        }
+        barChart.update();
+      });
+    });
+
+    /* ---------- Reports data & tabs ---------- */
+    const labData = [
+      {test:'Electrocardiography', ref:'Dr. Sana Imam', date:'28 Jan, 2024', comments:'Good! Take rest', result:'Normal', tagColor:'#2ecc71'},
+      {test:'Liver biopsy', ref:'Dr. Ayush Raj', date:'12 Jan, 2024', comments:'Waiting for diagram', result:'Hepatitis', tagColor:'#60a5fa'},
+      {test:'Blood Test', ref:'Dr. Anupama Roy', date:'10 Jan, 2024', comments:'As needed', result:'Perfect', tagColor:'#22c55e'},
+      {test:'Esophageal pH test', ref:'Dr. Sahil', date:'24 Dec, 2023', comments:'Good', result:'Lower', tagColor:'#f59e0b'}
+    ];
+    const labBody = document.getElementById('labBody');
+    function renderLab(){
+      labBody.innerHTML = '';
+      labData.forEach(r=>{
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${r.test}</td>
+          <td>${r.ref}</td>
+          <td>${r.date}</td>
+          <td>${r.comments}</td>
+          <td><span class="tag" style="background:${r.tagColor}">${r.result}</span></td>
+        `;
+        labBody.appendChild(tr);
+      });
+    }
+    renderLab();
+
+    // fill recent table (reuse data)
+    const recentBody = document.getElementById('recentBody');
+    labData.forEach(r=>{
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td>${r.test}</td><td>${r.ref}</td><td>${r.date}</td><td>${r.comments}</td><td><span class="tag" style="background:${r.tagColor}">${r.result}</span></td>`;
+      recentBody.appendChild(tr);
+    });
+
+    // tabs switching
+    const tabs = document.querySelectorAll('#reportTabs button');
+    tabs.forEach(t=>{
+      t.addEventListener('click', ()=>{
+        tabs.forEach(x=>x.classList.remove('active'));
+        t.classList.add('active');
+        const tab = t.dataset.tab;
+        document.getElementById('labTable').style.display = (tab==='lab') ? 'table' : 'none';
+        document.getElementById('otherContent').style.display = (tab==='lab') ? 'none' : 'block';
+        // You can load different data per tab here
+      });
+    });
+
+    /* ---------- Mini calendar (right) ---------- */
+    const miniMonthEl = document.getElementById('miniMonth');
+    const miniDatesEl = document.getElementById('miniDates');
+    let miniDate = new Date();
+    function renderMiniCal(dateObj){
+      miniDatesEl.innerHTML = '';
+      const y = dateObj.getFullYear(), m = dateObj.getMonth();
+      miniMonthEl.textContent = dateObj.toLocaleString('default',{month:'short', year:'numeric'});
+      const first = new Date(y,m,1).getDay(); // 0..6
+      const days = new Date(y,m+1,0).getDate();
+      // show day names top row
+      const dayNames = ['S','M','T','W','T','F','S'];
+      // Render blank placeholders for alignment
+      for(let i=0;i<first;i++){
+        const el = document.createElement('div'); el.style.opacity=0.2; miniDatesEl.appendChild(el);
+      }
+      for(let d=1; d<=days; d++){
+        const el = document.createElement('div');
+        el.textContent = d;
+        el.style.padding='8px'; el.style.textAlign='center'; el.style.borderRadius='6px';
+        if(d=== (new Date()).getDate() && m=== (new Date()).getMonth() && y === (new Date()).getFullYear()){
+          el.style.background='linear-gradient(90deg,var(--accent),var(--accent-2))';
+          el.style.color='white';
+          el.style.fontWeight='700';
+        } else {
+          el.style.background='transparent'; el.style.color='var(--muted)';
+        }
+        miniDatesEl.appendChild(el);
+      }
+    }
+    renderMiniCal(miniDate);
+    document.getElementById('prevMonth').addEventListener('click', ()=>{ miniDate.setMonth(miniDate.getMonth()-1); renderMiniCal(miniDate); });
+    document.getElementById('nextMonth').addEventListener('click', ()=>{ miniDate.setMonth(miniDate.getMonth()+1); renderMiniCal(miniDate); });
+
+    /* ---------- Appointments list ---------- */
+    const appts = [
+      {date:'19', day:'Mon', doc:'Dr. Friedric Ziccardi', time:'17:00', speciality:'Cardiologist', color:'#60a5fa'},
+      {date:'20', day:'Mon', doc:'Dr. Abagael Bitsui', time:'20:00', speciality:'Medicine', color:'#34d399'},
+      {date:'21', day:'Sun', doc:'Dr. John Doe', time:'10:00', speciality:'Dentist', color:'#7c3aed'}
+    ];
+    const apptList = document.getElementById('apptList');
+    appts.forEach(a=>{
+      const div = document.createElement('div');
+      div.className='appt-item';
+      div.innerHTML = `
+        <div class="date-pill">${a.date}<div style="font-size:11px;color:var(--muted)">${a.day}</div></div>
+        <div class="appt-content">
+          <div style="font-weight:700">${a.doc}</div>
+          <div style="color:var(--muted);font-size:13px">${a.speciality} · ${a.time}</div>
+        </div>
+      `;
+      apptList.appendChild(div);
+    });
+
+    /* ---------- Small interactions ---------- */
+    document.getElementById('fullReportBtn').addEventListener('click', ()=>{
+      alert('Opening full patient report (placeholder) — integrate a modal or route in real app.');
+    });
+
+    // simple search example
+    document.getElementById('searchInput').addEventListener('keydown', (e)=>{
+      if(e.key === 'Enter') alert('Search: '+ e.target.value);
+    });
+  </script>
+</body>
+</html>

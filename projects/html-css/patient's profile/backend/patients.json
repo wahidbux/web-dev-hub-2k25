@@ -1,0 +1,17 @@
+[
+  {
+    "id": 101,
+    "name": "Amit Sharma",
+    "age": 35,
+    "weight": 72,
+    "height": 175,
+    "history": ["Checkup - Jan 2025", "Lab Test - Feb 2025"],
+    "remarks": "Patient recovering well, continue medication.",
+    "weeklyData": {
+      "heartRate": [72, 75, 70, 74, 76, 78, 72],
+      "bloodPressure": [120, 118, 122, 121, 119, 123, 117],
+      "oxygen": [98, 97, 99, 96, 98, 97, 98],
+      "glucose": [95, 100, 92, 98, 96, 99, 94]
+    }
+  }
+]
