@@ -1,0 +1,16 @@
+import express from "express";
+const app = express();
+
+const weather = [
+  { city: "Karachi", temp: 34 },
+  { city: "Lahore", temp: 30 },
+  { city: "Islamabad", temp: 25 }
+];
+
+app.get("/weather/:city", (req, res) => {
+  const city = weather.find(w => w.city.toLowerCase() === req.params.city.toLowerCase());
+  if (!city) return res.status(404).json({ message: "City not found" });
+  res.json(city);
+});
+
+app.listen(3004, () => console.log("Weather API on 3004"));
